@@ -12,6 +12,7 @@
 """
 
 import random
+import matplotlib.pyplot as plt
 
 class Environment:
     def __init__(self):
@@ -87,25 +88,20 @@ def main():
     env = Environment()
     agent = Agent()
 
-    value = list([0, 0, 0, 0] for _ in range(4))
+    data = list([0, 0, 0, 0] for _ in range(4))
     gamma = 1.0
-    alpha = 0.0001
+    alpha = 0.01
 
-    for k in range(5):
+    for k in range(50000):
         done = False
-        history = []
         while not done:
+            x, y = env.get_state()
             action = agent.move()
-            (x, y), reward, done = env.step(action)
-            history.append((x,y, reward))
+            (x_prime, y_prime), reward, done = env.step(action)
+            data[x][y] = data[x][y] + alpha *(reward + gamma * data[x_prime][y_prime]-data[x][y])
         env.reset()
-
-        cum_reward = 0
-        for trasition in history[::-1]:
-            x, y, reward = trasition
-            value[x][y] = value[x][y] + alpha * (cum_reward - value[x][y])
-            cum_reward = reward + gamma * cum_reward
-    for row in value:
+        
+    for row in data:
         print(row)
 
 if __name__ == "__main__":
