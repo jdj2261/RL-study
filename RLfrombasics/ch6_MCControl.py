@@ -71,8 +71,7 @@ class GridWrold():
 
 class QAgent():
     def __init__(self):
-        self.q_table = np.zeros((5, 7, 4))
-        print(self.q_table.shape)
+        self.q_table = np.zeros((5, 7, 4)))
         self.eps = 0.9
         self.alpha = 0.01
 

@@ -93,6 +93,7 @@ def main():
         done = False
 
         while not done:
+            env.render()
             a = q.sample_action(torch.from_numpy(s).float(), epsilon)
             s_prime, r, done, info = env.step(a)
             done_mask = 0.0 if done else 1.0
@@ -112,4 +113,5 @@ def main():
             score = 0.0
     env.close()
 
-main()
+if __name__ == "__main__":
+    main()
