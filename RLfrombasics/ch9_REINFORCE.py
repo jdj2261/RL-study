@@ -29,6 +29,7 @@ class Policy(nn.Module):
         R = 0
         self.optimizer.zero_grad()
         for r, prob in self.data[::-1]:
+            print(r, prob)
             R = r + gamma * R
             loss = -R * torch.log(prob)
             loss.backward()
